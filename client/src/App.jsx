@@ -1,22 +1,29 @@
 import clsx from 'clsx';
-import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Home } from './pages/Home';
-import { Room } from './pages/Room';
+import React, { useState } from 'react';
+import { EnterName } from './components/EnterName';
+import { JoinRoom } from './components/JoinRoom';
+import { Room } from './components/Room';
+
+function randomInteger(min = 0, max = 1000000) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 export function App() {
+  const [name, setName] = useState(null);
+  const [roomId, setRoomId] = useState(null);
+  const innerComponent = () => {
+    if (!name) {
+      return <EnterName setName={setName} />;
+    }
+    if (!roomId) {
+      return <JoinRoom setRoomId={setRoomId} />;
+    }
+    const id = randomInteger();
+    return <Room {...{ name, roomId, id }} />;
+  };
   return (
-    <BrowserRouter>
-      <Switch>
-        <div className={clsx('jumbotron', 'bg-light', 'container')}>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/rooms/:roomId">
-            <Room />
-          </Route>
-        </div>
-      </Switch>
-    </BrowserRouter>
+    <div className={clsx('jumbotron', 'bg-light', 'container')}>
+      {innerComponent()}
+    </div>
   );
 }

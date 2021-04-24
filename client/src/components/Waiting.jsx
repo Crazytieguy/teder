@@ -1,13 +1,13 @@
 import clsx from 'clsx';
-import React, { useEffect } from 'react';
+import React from 'react';
 
-export function Waiting({ conn }) {
+export function Waiting({ socket, id }) {
   return (
     <div>
       <h2 className="m2">Waiting for players</h2>
       <button
         className={clsx('btn', 'btn-primary')}
-        onClick={() => conn.emit('start-game')}
+        onClick={() => socket.emit('start', id)}
       >
         Start Game
       </button>

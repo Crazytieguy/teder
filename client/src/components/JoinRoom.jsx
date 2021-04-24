@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { onEnter } from '../utils';
 
@@ -8,16 +7,7 @@ function createRoom() {
   return axios.post('/api/create/').then((response) => response.data.id);
 }
 
-function goToRoom({ roomId, push }) {
-  if (!roomId) {
-    return () => createRoom()
-      .then((id) => push(`/rooms/${id}`));
-  }
-  return () => push(`/rooms/${roomId}`);
-}
-
-export function JoinRoom() {
-  const { push } = useHistory();
+export function JoinRoom({ setRoomId }) {
   const [roomIdInput, setRoomIdInput] = useState('');
   return (
     <div>
@@ -31,12 +21,12 @@ export function JoinRoom() {
           placeholder="Room ID"
           value={roomIdInput}
           onChange={(e) => setRoomIdInput(e.target.value)}
-          onKeyUp={onEnter(goToRoom({ roomId: roomIdInput, push }))}
+          onKeyUp={onEnter(() => setRoomId(roomIdInput))}
         />
 
         <button
           className={clsx('btn', 'btn-primary')}
-          onClick={goToRoom({ roomId: roomIdInput, push })}
+          onClick={() => setRoomId(roomIdInput)}
         >
           Join Room
         </button>
@@ -47,7 +37,7 @@ export function JoinRoom() {
       <div>
         <button
           className={clsx('btn', 'btn-primary')}
-          onClick={goToRoom({ push })}
+          onClick={() => createRoom().then(setRoomId)}
         >
           Create Room
         </button>

@@ -9,9 +9,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root'),
 );
-
-// const socket = io({ path: '/api/socket.io' });
-// socket.on('connect', () => {
-//   console.log('connected');
-//   socket.emit('message', 'yoav');
-// });

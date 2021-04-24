@@ -9,7 +9,7 @@ python = "3.9.*"
 Flask = "^1.1.2"
 Flask-SocketIO = "^5.0.1"
 eventlet = "^0.30.2"
-Flask-Cors = "^3.0.10"
+dataclasses-json = "^0.5.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

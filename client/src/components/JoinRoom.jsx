@@ -20,7 +20,7 @@ export function JoinRoom({ setRoomId }) {
           className={clsx('form-control')}
           placeholder="Room ID"
           value={roomIdInput}
-          onChange={(e) => setRoomIdInput(e.target.value)}
+          onChange={(e) => setRoomIdInput(e.target.value.toUpperCase())}
           onKeyUp={onEnter(() => setRoomId(roomIdInput))}
         />
 

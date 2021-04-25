@@ -38,7 +38,7 @@ class Player:
 
 
 def generate_height():
-    return round(random.uniform(0, 9), 1)
+    return round(random.uniform(0, 1), 2)
 
 
 @dataclass_json(letter_case=LetterCase.CAMEL)
@@ -47,6 +47,7 @@ class Teder:
     prompt: Prompt
     hinter: Player
     actual_height: int = field(default_factory=generate_height)
+    hint: str = None
     guessed_height: int = None
 
 

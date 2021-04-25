@@ -1,3 +1,4 @@
+import { CssBaseline } from '@material-ui/core';
 import clsx from 'clsx';
 import React, { useState } from 'react';
 import { EnterName } from './components/EnterName';
@@ -23,6 +24,7 @@ export function App() {
   };
   return (
     <div className={clsx('jumbotron', 'bg-light', 'container')}>
+      <CssBaseline />
       {innerComponent()}
     </div>
   );

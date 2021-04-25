@@ -42,6 +42,16 @@ def join(data):
 
 
 @socketio.event
+def hint(new_teder):
+    new_teder = Teder.from_dict(new_teder)
+    room = room_id_to_room[new_teder.hinter.room_id]
+    for teder in room.tedarim:
+        if teder.hinter == new_teder.hinter:
+            teder.hint = new_teder.hint
+    emit("update-room", room.to_socket_json(), to=room.id)
+
+
+@socketio.event
 def start(player_id):
     initiator = player_id_to_player[player_id]
     room = room_id_to_room[initiator.room_id]

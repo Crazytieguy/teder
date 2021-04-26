@@ -6,6 +6,7 @@ from enum import Enum, auto
 from datetime import datetime
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Optional
 
 from dataclasses_json import dataclass_json, LetterCase
 from flask import json
@@ -46,9 +47,10 @@ def generate_height():
 class Teder:
     prompt: Prompt
     hinter: Player
-    actual_height: int = field(default_factory=generate_height)
-    hint: str = None
-    guessed_height: int = None
+    actual_height: float = field(default_factory=generate_height)
+    hint: Optional[str] = None
+    guessed_height: float = 0.5
+    guess_is_final: bool = False
 
 
 def new_id():

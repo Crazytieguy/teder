@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { io } from 'socket.io-client';
+import { Guessing } from './Guessing';
 import { Hinting } from './Hinting';
 import { Waiting } from './Waiting';
 
@@ -33,8 +34,9 @@ export function Room({ name, roomId, id }) {
       return render(<Waiting {...{ socket, id }} />);
     case 'HINTING':
       return render(<Hinting {...{ socket, id, room }} />);
+    case 'GUESSING':
+      return render(<Guessing {...{ socket, id, room }} />);
     case undefined:
-      console.log(room);
       socket.on('update-room', setRoom);
       socket.emit('join', { name, roomId, id }, setRoom);
       return <div>Joining Room</div>;

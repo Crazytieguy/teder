@@ -42,12 +42,18 @@ def join(data):
 
 
 @socketio.event
-def hint(new_teder):
+def teder(new_teder):
     new_teder = Teder.from_dict(new_teder)
+    print(new_teder)
     room = room_id_to_room[new_teder.hinter.room_id]
-    for teder in room.tedarim:
-        if teder.hinter == new_teder.hinter:
-            teder.hint = new_teder.hint
+    for i in range(len(room.tedarim)):
+        if room.tedarim[i].hinter == new_teder.hinter:
+            room.tedarim[i] = new_teder
+    if room.state == RoomState.HINTING:
+        if all(t.hint for t in room.tedarim):
+            room.state = RoomState.GUESSING
+    elif room.state == RoomState.GUESSING:
+        pass
     emit("update-room", room.to_socket_json(), to=room.id)
 
 
